@@ -1,0 +1,10 @@
+name = "Isaac"
+uuid = "295020cf-ac59-42c0-b9fb-a3cbe13249ef"
+authors = ["Michael Oldfield <magister_ludi_github@yahoo.com.au>"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
