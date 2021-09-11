@@ -2,6 +2,7 @@
 
 using Test
 using Isaac
+using Random
 
 @testset "Compare published results" begin
     data =
@@ -15,7 +16,7 @@ using Isaac
     for i = 1:10
         for j = 1:(Isaac.RANDSIZ)
             n += 1
-            @test data[n] == isaac_rand(rctx)
+            @test data[n] == rand(rctx, UInt32)
         end
     end
 end
@@ -34,7 +35,30 @@ end
     for i = 1:10
         for j = 1:(Isaac.RANDSIZ)
             n += 1
-            @test data[n] == isaac_rand(rctx)
+            @test data[n] == rand(rctx, UInt64)
         end
+    end
+end
+
+@testset "Test seed, hash, copy, equality" begin
+    seed = """Freude, schöner Götterfunken,
+              Tochter aus Elisium,
+              Wir betreten feuertrunken
+              Himmlische, dein Heiligthum."""
+    for t in (Isaac32, Isaac64)
+        rngbase = t(seed)
+        rngtest = copy(rngbase)
+        @test rngbase == rngtest
+        @test hash(rngbase) == hash(rngtest)
+        for _ in 1:5
+            rand(rngtest)
+        end
+        @test rngbase != rngtest
+        Random.seed!(rngtest, seed)
+        @test rngbase == rngtest
+        rngtest = t()
+        @test rngbase != rngtest
+        Random.seed!(rngtest, seed)
+        @test rngbase == rngtest
     end
 end
