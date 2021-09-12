@@ -67,7 +67,7 @@ function mix!(::Isaac64, data)
     data[7] += data[8]
 end
 
-function randinit(ctx::Isaac64, s::AbstractString)
+function randinit(ctx::Isaac64, bytes::AbstractVector{UInt8})
     ctx.randa = ctx.randb = ctx.randc = 0
     fill!(ctx.randmem, 0)
     fill!(ctx.randrsl, 0)
@@ -77,27 +77,15 @@ function randinit(ctx::Isaac64, s::AbstractString)
         mix!(ctx, data)
     end
 
-    if !isempty(s)             # use all the information in the seed
-        bytes = transcode(UInt8, s)
+    if !isempty(bytes)             # use all the information in the seed
         len = min(length(bytes) >> 3, RANDSIZ)
         io = IOBuffer(bytes)
         for k = 1:len
             ctx.randrsl[k] = htol(read(io, UInt64))
         end
-        if len < RANDSIZ
-            k = len + 1
-            pos = 0
-            while !eof(io)
-                #ctx.randrsl[k]=ctx.randrsl[k]<<1 | read(io, UInt8)
-                by = UInt64(read(io, UInt8)) << pos
-                ctx.randrsl[k] = ctx.randrsl[k] | by
-                pos += 8
-            end
-            ctx.randrsl[k] = htol(ctx.randrsl[k])
-        end
     end
     for i = 1:8:RANDSIZ            # fill in randmem[] with messy stuff
-        if !isempty(s)             # use all the information in the seed
+        if !isempty(bytes)             # use all the information in the seed
             data[1] += ctx.randrsl[i]
             data[2] += ctx.randrsl[i + 1]
             data[3] += ctx.randrsl[i + 2]
@@ -118,7 +106,7 @@ function randinit(ctx::Isaac64, s::AbstractString)
         ctx.randmem[i + 6] = data[7]
         ctx.randmem[i + 7] = data[8]
     end
-    if !isempty(s) # do a second pass to make all of the seed affect all of ctx.randmem
+    if !isempty(bytes) # do a second pass to make all of the seed affect all of ctx.randmem
         for i = 1:8:RANDSIZ
             data[1] += ctx.randmem[i]
             data[2] += ctx.randmem[i + 1]

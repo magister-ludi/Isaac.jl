@@ -4,7 +4,7 @@ using Test
 using Isaac
 using Random
 
-@testset "Compare published results" begin
+@testset "      Compare published results" begin
     data =
         parse.(
             UInt32,
@@ -21,7 +21,7 @@ using Random
     end
 end
 
-@testset "Compare 64-bit results" begin
+@testset "         Compare 64-bit results" begin
     data =
         parse.(
             UInt64,

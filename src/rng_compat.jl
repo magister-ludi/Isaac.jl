@@ -2,10 +2,14 @@
 # implementation of AbstractRNG overloading based on
 # https://github.com/JuliaRandom/StableRNGs.jl
 
-function seed!(rng::IsaacRNG, seed::AbstractString)
+function seed!(rng::IsaacRNG{T}, seed::AbstractVector{UInt8}) where {T}
+    xtra = sizeof(T) - mod(length(seed), sizeof(T))
+    seed = [seed; zeros(UInt8, xtra)]
     randinit(rng, seed)
     rng
 end
+
+seed!(rng::IsaacRNG, seed::AbstractString) = seed!(rng, transcode(UInt8, seed))
 
 function Base.copy!(dst::IsaacRNG{T}, src::IsaacRNG{T}) where {T}
     dst.randrsl .= src.randrsl
@@ -64,4 +68,4 @@ rand(rng::IsaacRNG, ::SamplerType{UInt128}) =
 
 rand(rng::IsaacRNG, ::SamplerType{Int128}) = rand(rng, UInt128) % Int128
 
-Random.rng_native_52(::IsaacRNG) = UInt64
+rng_native_52(::IsaacRNG) = UInt64
