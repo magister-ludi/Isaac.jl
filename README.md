@@ -14,8 +14,9 @@ How secure is it? See the home page, and pay attention to Jenkins' warning:
 > encrypting the seed with a block cipher. ISAAC should be initialized
 > with the encryption of the seed by some secure cipher.
 
-I am definitely not an expert, but as far as I know, there appears to be no public
-(see e.g. [Wikipedia](https://en.wikipedia.org/wiki/ISAAC_(cipher)).
+I am definitely not an expert, but there appears to be no public evidence
+(see e.g. [Wikipedia](https://en.wikipedia.org/wiki/ISAAC_(cipher)) that the
+cipher has been broken.
 
 ## API
 
