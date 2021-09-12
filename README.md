@@ -13,6 +13,7 @@ How secure is it? See the home page, and pay attention to Jenkins' warning:
 > Seeding a random number generator is essentially the same problem as
 > encrypting the seed with a block cipher. ISAAC should be initialized
 > with the encryption of the seed by some secure cipher.
+
 I am definitely not an expert, but as far as I know, there appears to be no public
 (see e.g. [Wikipedia](https://en.wikipedia.org/wiki/ISAAC_(cipher)).
 
@@ -21,6 +22,7 @@ I am definitely not an expert, but as far as I know, there appears to be no publ
 Two versions of ISAAC generator are provided:
 - __Isaac32__ generates 32-bit unsigned integers
 - __Isaac64__ generates 64-bit unsigned integers
+
 The two generators use different algorithms, and will produce different
 numbers given the same seed. Both generators are subtypes of `Random.AbstractRNG`
 and can be used (I hope) with the same methods provided by `Random` in the Julia
@@ -41,7 +43,7 @@ to seed the generator
 value generated (either `UInt32` or `UInt64`. This method is not exported.
 - `Random.seed!(rng::Union{Isaac32, Isaac64}, seed)` will re-seed `rng` with `seed`.
 This is used by the constructors, and `seed` can have the same types as in the constructors.
-- `rand(rng::Union{Isaac32, Isaac64}, ::Type{T}, n = 1)` where `T` can be any of the
+- `rand(rng::Union{Isaac32, Isaac64}, ::Type{T}, n = (1, ))` where `T` can be any of the
 types available to the standard Julia `Random.rand(...)` methods.
 - Other methods such as `randn(rng::Union{Isaac32, Isaac64},...)`,
 `shuffle(rng::Union{Isaac32, Isaac64},...)` are accessible if `Random` is `use`d
