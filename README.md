@@ -2,8 +2,7 @@
 
 ## Background
 
-ISAAC (Indirection, Shift, Accumulate, Add, and Count) generates random numbers,
-.
+ISAAC (Indirection, Shift, Accumulate, Add, and Count) generates pseudorandom numbers.
 The original C reference version was developed by
 [Robert J. Jenkins Jr.](https://burtleburtle.net/bob/)
 and is available from
@@ -26,8 +25,9 @@ Two versions of ISAAC generator are provided:
 
 The two generators use different algorithms, and will produce different
 numbers given the same seed. Both generators are subtypes of `Random.AbstractRNG`
-and can be used (I hope) with the same methods provided by `Random` in the Julia
-standard library.
+and can be used (I hope) with the same methods provided by [`Random`](https://docs.julialang.org/en/v1/stdlib/Random/#Random-generation-functions) in the Julia
+standard library (Thanks to [StableRNGs](https://github.com/JuliaRandom/StableRNGs.jl)
+for showing me how to do this).
 
 ### Construction
 
