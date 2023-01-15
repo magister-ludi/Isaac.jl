@@ -83,6 +83,7 @@ function randinit(rng::Isaac32, bytes::AbstractVector{UInt8})
     if !isempty(bytes)
         len = min(length(bytes) ÷ 4, RANDSIZ)
         io = IOBuffer(bytes[1:(4 * len)])
+        @assert mod(length(bytes), 4) == 0
         for k = 1:len
             rng.randrsl[k] = htol(read(io, UInt32))
         end
@@ -141,7 +142,6 @@ function randinit(rng::Isaac32, bytes::AbstractVector{UInt8})
             rng.randmem[i + 7] = data[8]
         end
     end
-
     isaac(rng)                 # fill in the first set of results
     rng.randcnt = RANDSIZ + 1  # prepare to use the first set of results
 end

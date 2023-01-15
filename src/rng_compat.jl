@@ -3,7 +3,8 @@
 # https://github.com/JuliaRandom/StableRNGs.jl
 
 function seed!(rng::IsaacRNG{T}, seed::AbstractVector{UInt8}) where {T}
-    xtra = sizeof(T) - mod(length(seed), sizeof(T))
+    tb = sizeof(T)
+    xtra = mod(tb - mod(length(seed), tb), tb)
     seed = [seed; zeros(UInt8, xtra)]
     randinit(rng, seed)
     rng
@@ -26,7 +27,7 @@ function Base.copy(src::IsaacRNG{T}) where {T}
     copy!(dst, src)
 end
 
-function Base.:(==)(x::IsaacRNG, y::IsaacRNG) where {T}
+function Base.:(==)(x::IsaacRNG, y::IsaacRNG)
     all(x.randrsl .== y.randrsl) &&
         all(x.randmem .== y.randmem) &&
         x.randcnt == y.randcnt &&

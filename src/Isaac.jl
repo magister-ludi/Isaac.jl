@@ -1,10 +1,10 @@
 module Isaac
 
-export isaac_rand, Isaac32, Isaac64
-
 using Random: Random, AbstractRNG, SamplerType
 
 import Random: rand, seed!, rng_native_52
+
+export isaac_rand, Isaac32, Isaac64
 
 #=
    ------------------------------------------------------------------------------

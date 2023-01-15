@@ -5,10 +5,8 @@ function rngstep(ctx::Isaac64, mix::UInt64, b::UInt64, mm, m, m2, r)
     x = ctx.randmem[m]
     a = mix + ctx.randmem[m2]
     m2 += 1
-    #@printf("a. %016x %d\n", x, ind(ctx, mm, x))
     ctx.randmem[m] = y = ctx.randmem[ind(ctx, mm, x)] + a + b
     m += 1
-    #@printf("b. %16s %d\n", "",  mm + (x & ((RANDSIZ - 1) << 3)) >> 8)
     ctx.randrsl[r] = b = ctx.randmem[ind(ctx, mm, y >> RANDSIZL)] + x
     r += 1
     return x, y, a, b, m, m2, r
