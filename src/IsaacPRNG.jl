@@ -1,4 +1,4 @@
-module Isaac
+module IsaacPRNG
 
 using Random: Random, AbstractRNG, SamplerType
 
