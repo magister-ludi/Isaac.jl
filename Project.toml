@@ -1,4 +1,4 @@
-name = "IsaacPRNG"
+name = "Isaac"
 uuid = "295020cf-ac59-42c0-b9fb-a3cbe13249ef"
 authors = ["Michael Oldfield <magister_ludi_github@yahoo.com.au>"]
 version = "0.1.0"

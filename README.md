@@ -1,4 +1,4 @@
-# IsaacPRNG.jl
+# Isaac.jl
 
 ## Background
 

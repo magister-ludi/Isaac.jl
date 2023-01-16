@@ -1,7 +1,7 @@
 #!/usr/bin/env julia
 
 using Test
-using IsaacPRNG
+using Isaac
 using Random
 
 @testset "      Compare published results" begin
@@ -14,7 +14,7 @@ using Random
     rctx = Isaac32("This is <i>not</i> the right mytext.")
     n = 0
     for i = 1:10
-        for j = 1:(IsaacPRNG.RANDSIZ)
+        for j = 1:(Isaac.RANDSIZ)
             n += 1
             @test data[n] == rand(rctx, UInt32)
         end
@@ -33,7 +33,7 @@ end
     )
     n = 0
     for i = 1:10
-        for j = 1:(IsaacPRNG.RANDSIZ)
+        for j = 1:(Isaac.RANDSIZ)
             n += 1
             @test data[n] == rand(rctx, UInt64)
         end
