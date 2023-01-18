@@ -3,11 +3,11 @@ uuid = "295020cf-ac59-42c0-b9fb-a3cbe13249ef"
 authors = ["Michael Oldfield <magister_ludi_github@yahoo.com.au>"]
 version = "0.1.0"
 
-[compat]
-julia = "1.7"
-
 [deps]
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+
+[compat]
+julia = "1"
 
 [extras]
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
